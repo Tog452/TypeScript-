@@ -1,0 +1,13 @@
+import { ethers } from "ethers";
+
+const provider = new ethers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+const contractAddress = "0xYourContractAddressHere";
+const contractAbi = [
+    "event Transfer(address indexed from, address indexed to, uint256 value)"
+];
+
+const contract = new ethers.Contract(contractAddress, contractAbi, provider);
+
+contract.on("Transfer", (from, to, value) => {
+    console.log(`Transfer detected: ${from} -> ${to} | Value: ${ethers.formatEther(value)}`);
+});
